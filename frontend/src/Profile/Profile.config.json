@@ -1,0 +1,38 @@
+{
+    "GroupBar1": [
+        {
+            "img": "",
+            "name": "История"
+        },
+        {
+            "img": "",
+            "name": "Мой профиль"
+        }
+    ],
+    "GroupBar2": [
+        {
+            "img": "",
+            "name": "Вопросы & Ответы"
+        }
+    ],
+    "GroupBar3": [
+        {
+            "img": "",
+            "name": "Выйти из профиля"
+        }
+    ],
+    "Box":[
+        {
+            "img": "/Avatar.png",
+            "header": "Text",
+            "text": "text",
+            "background": "#D5F2FE"
+        },
+        {
+            "img": "",
+            "header": "NoText",
+            "text": "NoText",
+            "background": "#DFF8CF"
+        }
+    ]
+}

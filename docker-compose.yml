@@ -1,0 +1,54 @@
+services:
+  # Контейнер для PostgreSQL
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: avis
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./script:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "5432:5432"
+
+  # Контейнер для backend
+  backend:
+    image: visage5/avis:back
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      - DB_USER=postgres
+      - DB_HOST=postgres  # Используем имя сервиса db вместо localhost
+      - DB_NAME=avis
+      - DB_PASSWORD=postgres
+      - DB_PORT=5432
+      - JWT_SECRET=mysecretkey
+    depends_on:
+      - postgres
+    ports:
+      - "5000:5000"
+
+  # Контейнер для frontend
+  frontend:
+    image: visage5/avis:latest
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    depends_on:
+      - backend
+    networks:
+      - app_network
+    ports:
+      - "5173:5173"
+    environment:
+      - REACT_APP_API_URL=http://backend:5000/api
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
