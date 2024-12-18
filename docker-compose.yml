@@ -15,9 +15,6 @@ services:
   # Контейнер для backend
   backend:
     image: visage5/avis:back
-    build:
-      context: .
-      dockerfile: backend/Dockerfile
     environment:
       - DB_USER=postgres
       - DB_HOST=postgres  # Используем имя сервиса db вместо localhost
@@ -33,9 +30,6 @@ services:
   # Контейнер для frontend
   frontend:
     image: visage5/avis:latest
-    build:
-      context: .
-      dockerfile: frontend/Dockerfile
     depends_on:
       - backend
     networks:
